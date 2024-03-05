@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 27 feb 2024 12:34:42 by Hibernate Tools 6.3.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="bancovigo" name="Cuenta" optimistic-lock="none" table="cuenta">
+        <id name="cuCodCuenta" type="java.lang.Integer">
+            <column name="cuCodCuenta"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="Sucursales" fetch="select" name="sucursales">
+            <column name="cuCodSucursal"/>
+        </many-to-one>
+        <property name="cuFechaCreacion" type="date">
+            <column length="10" name="cuFechaCreacion"/>
+        </property>
+        <property name="cuSaldo" type="java.lang.Integer">
+            <column name="CuSaldo"/>
+        </property>
+        <set fetch="select" inverse="false" lazy="true" name="clientes" table="cuentascliente">
+            <key>
+                <column name="ccCodCuenta" not-null="true"/>
+            </key>
+            <many-to-many entity-name="Cliente">
+                <column length="9" name="ccDNI" not-null="true"/>
+            </many-to-many>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="transaccioneses" table="transacciones">
+            <key>
+                <column name="trCodCuenta"/>
+            </key>
+            <one-to-many class="Transacciones"/>
+        </set>
+    </class>
+</hibernate-mapping>

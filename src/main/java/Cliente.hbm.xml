@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 27 feb 2024 12:34:42 by Hibernate Tools 6.3.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="bancovigo" name="Cliente" optimistic-lock="none" table="cliente">
+        <id name="clDni" type="string">
+            <column length="9" name="clDni"/>
+            <generator class="assigned"/>
+        </id>
+        <property name="clNombre" type="string">
+            <column length="20" name="clNombre"/>
+        </property>
+        <property name="clApellido" type="string">
+            <column length="50" name="clApellido"/>
+        </property>
+        <property name="clTelefono" type="java.lang.Integer">
+            <column name="clTelefono"/>
+        </property>
+        <set fetch="select" inverse="false" lazy="true" name="cuentas" table="cuentascliente">
+            <key>
+                <column length="9" name="ccDNI" not-null="true"/>
+            </key>
+            <many-to-many entity-name="Cuenta">
+                <column name="ccCodCuenta" not-null="true"/>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
